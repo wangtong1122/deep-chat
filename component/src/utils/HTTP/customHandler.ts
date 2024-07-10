@@ -53,6 +53,7 @@ export class CustomHandler {
   public static stream(io: ServiceIO, body: RequestDetails['body'], messages: Messages) {
     let isHandlerActive = true;
     let isOpen = false;
+    // 这里创建stream是一个MessageStream实例
     const stream = new MessageStream(messages);
     const onOpen = () => {
       if (isOpen || !isHandlerActive) return;

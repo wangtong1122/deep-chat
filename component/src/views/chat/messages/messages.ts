@@ -169,6 +169,7 @@ export class Messages extends MessagesBase {
     if (message.files && Array.isArray(message.files)) {
       FileMessages.addMessages(this, message.files, message.role);
     }
+    // 调用添加一个Html的消息
     if (message.html !== undefined && message.html !== null) {
       const elements = HTMLMessages.add(this, message.html, message.role, this.messageElementRefs, overwrite);
       if (HTMLDeepChatElements.isElementTemporary(elements)) delete message.html;
