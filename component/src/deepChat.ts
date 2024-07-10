@@ -174,6 +174,7 @@ export class DeepChat extends InternalHTML {
 
   _auxiliaryStyleApplied = false;
 
+  //创建了一个BaseServiceIO实例
   _activeService?: ServiceIO;
 
   _childElement?: HTMLElement;
@@ -219,7 +220,9 @@ export class DeepChat extends InternalHTML {
     } else if (!(this._activeService instanceof DirectServiceIO) || this._activeService.key) {
       // set before container populated, not available in constructor for react,
       // assigning to variable as it is added to panel and is no longer child (test in official website)
+      console.log("默认创建的是这个",this.children[0],this._elementRef,)
       this._childElement ??= this.children[0] as HTMLElement | undefined;
+      //this.children[0] 是空的
       ChatView.render(this, this._elementRef, this._activeService, this._childElement);
     } else if (this._activeService instanceof DirectServiceIO) { // when direct service with no key
       // the reason why this is not initiated in the constructor is because properties/attributes are not available

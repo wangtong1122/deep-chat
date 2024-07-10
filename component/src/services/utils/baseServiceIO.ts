@@ -52,6 +52,7 @@ export class BaseServiceIO implements ServiceIO {
     if (deepChat.connect) this.connectSettings = deepChat.connect;
     if (this.demo) this.connectSettings.url ??= Demo.URL;
     if (this.connectSettings.websocket) Websocket.setup(this);
+    //   legacyDeepchat.connect = legacyDeepchat.request;
     this.stream = this.deepChat.connect?.stream || Legacy.checkForStream(this.deepChat);
   }
 
