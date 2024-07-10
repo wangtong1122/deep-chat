@@ -93,6 +93,7 @@ export class BaseServiceIO implements ServiceIO {
 
   private async request(body: any, messages: Messages, stringifyBody = true) {
     if (this.stream && !Stream.isSimulation(this.stream)) {
+      // 调用Stream.request方法
       return Stream.request(this, body, messages, stringifyBody);
     }
     return HTTPRequest.request(this, body, messages, stringifyBody);
@@ -106,6 +107,7 @@ export class BaseServiceIO implements ServiceIO {
       this.connectSettings.headers['Content-Type'] ??= 'application/json';
       tempHeaderSet = true;
     }
+    //调用request
     await this.request(body, messages);
     if (tempHeaderSet) delete this.connectSettings.headers?.['Content-Type'];
   }
@@ -123,10 +125,12 @@ export class BaseServiceIO implements ServiceIO {
     if (files) {
       this.callApiWithFiles(messages, pMessages, files);
     } else {
+      //调用这个方法
       this.callAPIWithText(messages, pMessages);
     }
   }
 
+  //实现callAPI方法
   // prettier-ignore
   async callAPI(requestContents: RequestContents, messages: Messages) {
     if (!this.connectSettings) throw new Error('Request settings have not been set up');

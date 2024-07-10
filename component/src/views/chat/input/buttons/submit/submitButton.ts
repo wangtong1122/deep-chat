@@ -28,6 +28,7 @@ import {
 
 type Styles = Omit<DefinedButtonStateStyles<SubmitButtonStyles>, 'alwaysEnabled'>;
 
+//重点是Submit的Button按钮如何实现文字发送
 export class SubmitButton extends InputButton<Styles> {
   private static readonly SUBMIT_CLASS = 'submit-button';
   private static readonly LOADING_CLASS = 'loading-button';
@@ -164,6 +165,7 @@ export class SubmitButton extends InputButton<Styles> {
     validationHandler();
   }
 
+  //发送数据到后台
   public async submitFromInput() {
     await this._fileAttachments.completePlaceholders();
     const uploadedFilesData = this._fileAttachments.getAllFileData();
@@ -197,6 +199,7 @@ export class SubmitButton extends InputButton<Styles> {
     TextInputEl.clear(this._inputElementRef); // when uploading a file and placeholder text present
     const filesData = content.files?.map((fileData) => fileData.file);
     const requestContents = {text: content.text === '' ? undefined : content.text, files: filesData};
+    //调用接口的API
     await this._serviceIO.callAPI(requestContents, this._messages);
     this._fileAttachments?.removeAllFiles();
   }
@@ -236,6 +239,7 @@ export class SubmitButton extends InputButton<Styles> {
     this.status.loadingActive = true;
   }
 
+  //验证通过后，将按钮变为提交按钮
   // called every time when user triggers an input via ValidationHandler - hence use class to check if not already present
   public changeToSubmitIcon() {
     if (this.elementRef.classList.contains(SubmitButton.SUBMIT_CLASS)) return;

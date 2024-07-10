@@ -21,6 +21,7 @@ export class Stream {
       (await RequestUtils.processRequestInterceptor(io.deepChat, requestDetails));
     const {onOpen, onClose, abortStream} = io.streamHandlers;
     if (error) return RequestUtils.onInterceptorError(messages, error, onClose);
+    // 通过给deepview 设置了 request，request中包含了handler，则直接走CustomHandler.stream
     if (io.connectSettings?.handler) return CustomHandler.stream(io, interceptedBody, messages);
     if (io.connectSettings?.url === Demo.URL) return Demo.requestStream(messages, io.streamHandlers);
     const stream = new MessageStream(messages);

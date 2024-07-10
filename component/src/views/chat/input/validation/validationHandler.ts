@@ -15,6 +15,7 @@ export class ValidationHandler {
       submitButton: SubmitButton, text?: string, files?: File[], isProgrammatic?: boolean) {
     const isValid = validation(text as string, files, isProgrammatic);
     if (isValid) {
+      // 验证通过，修改提交按钮的状态和可以触发提交
       submitButton.changeToSubmitIcon();
     } else {
       submitButton.changeToDisabledIcon();
@@ -30,6 +31,7 @@ export class ValidationHandler {
     await fileAttachments.completePlaceholders();
     const uploadedFilesData = fileAttachments.getAllFileData();
     const fileData = uploadedFilesData?.map((fileData) => fileData.file);
+    // 验证通过
     return ValidationHandler.validate(validation, submitButton, text as string, fileData);
   }
 

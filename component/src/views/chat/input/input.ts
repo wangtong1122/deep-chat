@@ -37,8 +37,11 @@ export class Input {
     if (deepChat.speechToText && !buttons.microphone) {
       buttons.microphone = {button: new SpeechToText(deepChat, textInput, messages.addNewErrorMessage.bind(messages))};
     }
+    //创建一个提交的按钮
     const submitButton = new SubmitButton(deepChat, textInput.inputElementRef, messages, serviceIO, fileAts, buttons);
+    //输入的提交等于提交按钮的提交
     textInput.submit = submitButton.submitFromInput.bind(submitButton);
+    // 验证处理
     ValidationHandler.attach(deepChat, serviceIO, textInput, fileAts, submitButton);
     deepChat.submitUserMessage = submitButton.programmaticSubmit.bind(submitButton);
     buttons.submit = {button: submitButton};

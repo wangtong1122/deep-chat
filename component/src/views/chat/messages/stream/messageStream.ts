@@ -35,11 +35,13 @@ export class MessageStream {
     const content = response?.text || response?.html || '';
     const isScrollbarAtBottomOfElement = ElementUtils.isScrollbarAtBottomOfElement(this._messages.elementRef);
     const streamType = response?.text !== undefined ? 'text' : 'html';
+    //核心，这里判断是否创建一个新的气泡
     if (!this._elements && this._streamedContent === '') {
       this.setInitialState(streamType, content, response?.role);
     } else if (this._streamType !== streamType) {
       return console.error(ErrorMessages.INVALID_STREAM_EVENT_MIX);
     } else {
+      // 更新一个气泡
       this.updateBasedOnType(content, streamType, this._elements?.bubbleElement as HTMLElement, response?.overwrite);
     }
     if (isScrollbarAtBottomOfElement) ElementUtils.scrollToBottom(this._messages.elementRef);
@@ -103,6 +105,7 @@ export class MessageStream {
       if (this._message) this._message.html = this._streamedContent;
     }
     if (this._message) {
+      //这里进行通知一下，将消息缓存到本地
       this._messages.sendClientUpdate(MessagesBase.createMessageContent(this._message), false);
     }
     this._hasStreamEnded = true;

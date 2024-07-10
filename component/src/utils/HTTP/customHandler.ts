@@ -72,11 +72,13 @@ export class CustomHandler {
         console.error(ErrorMessages.INVALID_RESPONSE(response, 'server', !!io.deepChat.responseInterceptor, result));
       } else if (result.error) {
         console.error(result.error);
+        // 如果出错，或者流数据结束了，就调用finaliseStreamedMessage，这里会将
         stream.finaliseStreamedMessage();
         messages.addNewErrorMessage('service', result.error);
         io.streamHandlers.onClose();
         isHandlerActive = false;
       } else {
+        // 调用到这里了
         Stream.upsertWFiles(messages, stream.upsertStreamedMessage.bind(stream), stream, result);
       }
     };
