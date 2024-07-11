@@ -29,6 +29,7 @@ export class HTMLMessages {
     return overwrittenElements;
   }
 
+  //调用HTML的新增一个
   // prettier-ignore
   public static add(
       messages: MessagesBase, html: string, role: string, messagesEls: MessageElements[], overwrite?: Overwrite) {

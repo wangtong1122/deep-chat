@@ -15,7 +15,7 @@ type UpsertFunc = (response?: ResponseI) => MessageStream | void;
 
 export class Stream {
   // prettier-ignore
-  public static async request(io: ServiceIO, body: object, messages: Messages, stringifyBody = true, canBeEmpty = false) {
+  public static async /**/request(io: ServiceIO, body: object, messages: Messages, stringifyBody = true, canBeEmpty = false) {
     const requestDetails = {body, headers: io.connectSettings?.headers};
     const {body: interceptedBody, headers: interceptedHeaders, error} =
       (await RequestUtils.processRequestInterceptor(io.deepChat, requestDetails));

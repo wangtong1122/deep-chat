@@ -15,10 +15,11 @@ export interface IWebsocketHandler {
 }
 
 export class CustomHandler {
+  // 非stream走这里
   public static async request(io: ServiceIO, body: RequestDetails['body'], messages: Messages) {
     let isHandlerActive = true;
     const onResponse = async (response: Response) => {
-      if (!isHandlerActive) return;
+      if (!isHandlerActive && !response.overwrite) return; //这里导致了普通的HTTP请求有问题
       isHandlerActive = false; // need to set it here due to asynchronous code below
       const result = (await io.deepChat.responseInterceptor?.(response)) || response;
       if (!RequestUtils.validateResponseFormat(result)) {
