@@ -90,6 +90,10 @@ export class CustomHandler {
       isHandlerActive = false;
     };
     const signals = CustomHandler.generateOptionalSignals();
+    // 返回这些给用户调用
+    //     signals.stopClicked.listener = () => {
+    //         // logic to stop your stream, such as creating an abortController
+    //       };监听停止按钮的调用
     io.connectSettings.handler?.(body,
       {...signals, onOpen, onResponse, onClose, stopClicked: io.streamHandlers.stopClicked});
   }

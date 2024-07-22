@@ -174,7 +174,7 @@ export class DeepChat extends InternalHTML {
 
   _auxiliaryStyleApplied = false;
 
-  //创建了一个BaseServiceIO实例
+  //创建了一个BaseServiceIO实例  可以获取streamHandlers给自定义的网络请求调用
   _activeService?: ServiceIO;
 
   _childElement?: HTMLElement;

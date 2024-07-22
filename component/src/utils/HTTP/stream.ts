@@ -34,7 +34,7 @@ export class Stream {
       openWhenHidden: true, // keep stream open when browser tab not open
       async onopen(response: Response) {
         if (response.ok) {
-          return onOpen();
+          return onOpen();//这里调用了open
         }
         const result = await RequestUtils.processResponseByType(response);
         throw result;
@@ -64,7 +64,7 @@ export class Stream {
         }
       },
       onerror(err) {
-        onClose();
+        onClose();//调用close
         throw err; // need to throw otherwise stream will retry infinitely
       },
       onclose() {

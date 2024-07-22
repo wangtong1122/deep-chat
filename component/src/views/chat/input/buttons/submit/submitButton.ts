@@ -143,9 +143,11 @@ export class SubmitButton extends InputButton<Styles> {
       onFinish: this.resetSubmit.bind(this, validationHandler),
     };
     this._serviceIO.streamHandlers = {
+      // 流式传输的open和close逻辑，调用
       onOpen: this.changeToStopIcon.bind(this),
       onClose: this.resetSubmit.bind(this, validationHandler),
       abortStream: this._abortStream,
+      // 监听stop按钮的点击事件
       stopClicked: this._stopClicked,
     };
     const {stream} = this._serviceIO;
