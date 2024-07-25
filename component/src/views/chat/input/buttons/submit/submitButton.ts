@@ -138,13 +138,14 @@ export class SubmitButton extends InputButton<Styles> {
     }
   }
 
+  //这里处理了loading和stop的样式，因为svg图标在hover时会改变颜色
   private assignHandlers(validationHandler: ValidationHandler) {
     this._serviceIO.completionsHandlers = {
       onFinish: this.resetSubmit.bind(this, validationHandler),
     };
     this._serviceIO.streamHandlers = {
       // 流式传输的open和close逻辑，调用
-      onOpen: this.changeToStopIcon.bind(this),
+      onOpen: ()=>{},
       onClose: this.resetSubmit.bind(this, validationHandler),
       abortStream: this._abortStream,
       // 监听stop按钮的点击事件
@@ -224,6 +225,7 @@ export class SubmitButton extends InputButton<Styles> {
   private changeToStopIcon() {
     if (this._serviceIO.websocket) return; // stop not used for streaming messages in websocket
     this.elementRef.classList.remove(SubmitButton.LOADING_CLASS, SubmitButton.DISABLED_CLASS, SubmitButton.SUBMIT_CLASS);
+
     this.elementRef.replaceChildren(this._innerElements.stop);
     this.reapplyStateStyle('stop', ['loading', 'submit']);
     this.elementRef.onclick = this.stopStream.bind(this);

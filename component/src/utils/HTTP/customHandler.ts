@@ -37,6 +37,7 @@ export class CustomHandler {
         io.completionsHandlers.onFinish();
       }
     };
+
     const signals = CustomHandler.generateOptionalSignals();
     io.connectSettings.handler?.(body, {...signals, onResponse});
   }

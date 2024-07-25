@@ -54,7 +54,7 @@ export class Messages extends MessagesBase {
       this.populateIntroPanel(panel, introPanelMarkUp, deepChat.introPanelStyle);
     }
     this.addIntroductoryMessage(deepChat, serviceIO);
-    this.populateHistory(deepChat);
+    this.populateHistory(deepChat);//这行的代码
     this._displayServiceErrorMessages = deepChat.errorMessages?.displayServiceErrorMessages;
     deepChat.getMessages = () => JSON.parse(JSON.stringify(this.messages));
     deepChat.clearMessages = this.clearMessages.bind(this, serviceIO);
@@ -133,7 +133,7 @@ export class Messages extends MessagesBase {
     if (!history) return;
     history.forEach((message) => {
       Legacy.processHistoryFile(message);
-      this.addNewMessage(message, true);
+      this.addNewMessage(message, true);//调用到了这里
     });
     // attempt to wait for the font file to be downloaded as otherwise text dimensions change after scroll
     // the timeout is sometimes not long enough - see the following on how user's can fix it:
