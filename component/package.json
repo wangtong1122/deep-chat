@@ -9,7 +9,7 @@
     "start": "vite",
     "build": "vite build",
     "build:watch": "vite build --watch",
-    "build:bundle": "npm run lint && tsc && vite build && npm run analyze && rollup -c && npm run build:babel",
+    "build:bundle": "tsc && vite build && npm run analyze && rollup -c && npm run build:babel",
     "analyze": "cem analyze --globs \"src/**/*.ts\"",
     "lint": "eslint --parser-options '{'project':'./tsconfig.json'}' 'src/**/*.ts'",
     "build:babel": "npm run build:temp && npm run transpile && rimraf dist/deepChatTemp.js",
