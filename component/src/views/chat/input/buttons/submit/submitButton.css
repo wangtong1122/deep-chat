@@ -19,3 +19,23 @@
   margin-right: 0.3em;
   margin-left: 0.3em;
 }
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip-text {
+  position: absolute;
+  width: 80px;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
