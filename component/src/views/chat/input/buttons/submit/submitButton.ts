@@ -57,7 +57,7 @@ export class SubmitButton extends InputButton<Styles> {
     this._fileAttachments = fileAttachments;
     this._innerElements = this.createInnerElements();
     this._abortStream = new AbortController();
-    this._stopClicked = {listener: () => {}};
+    this._stopClicked = {listener:async () => false};
     this._serviceIO = serviceIO;
     this._alwaysEnabled = !!submitButtonStyles?.alwaysEnabled;
     deepChat.disableSubmitButton = this.disableSubmitButton.bind(this, serviceIO);
@@ -145,7 +145,7 @@ export class SubmitButton extends InputButton<Styles> {
     };
     this._serviceIO.streamHandlers = {
       // 流式传输的open和close逻辑，调用
-      onOpen: ()=>{},
+      onOpen: this.changeToStopIcon.bind(this),
       onClose: this.resetSubmit.bind(this, validationHandler),
       abortStream: this._abortStream,
       // 监听stop按钮的点击事件
@@ -215,11 +215,11 @@ export class SubmitButton extends InputButton<Styles> {
     if (Object.keys(data).length > 0) this._messages.addNewMessage(data);
   }
 
-  private stopStream() {
+  private async stopStream() {
     // This will not stop the stream on the server side
     this._abortStream.abort();
-    this._stopClicked?.listener();
-    if (this._validationHandler) this.resetSubmit(this._validationHandler);
+    let res = await this._stopClicked?.listener();
+    if (res && this._validationHandler) this.resetSubmit(this._validationHandler);
   }
 
   private changeToStopIcon() {

@@ -133,6 +133,6 @@ export class CustomHandler {
   }
 
   private static generateOptionalSignals() {
-    return {onClose: () => {}, onOpen: () => {}, stopClicked: {listener: () => {}}, newUserMessage: {listener: () => {}}};
+    return {onClose: () => {}, onOpen: () => {}, stopClicked: { listener: async () => false}, newUserMessage: {listener: () => {}}};
   }
 }

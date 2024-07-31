@@ -5,7 +5,7 @@ export interface Signals {
   onResponse: (response: Response) => void;
   onOpen: () => void;
   onClose: () => void;
-  stopClicked: {listener: () => void};
+  stopClicked: {listener: () => Promise<boolean>};
   newUserMessage: {listener: (body: any) => void};
 }
 
